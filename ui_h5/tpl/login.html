@@ -1,0 +1,36 @@
+<div class="start">
+    <form class="login" name="loginForm" novalidate ng-submit="toLog()">
+        <h3 class="text-default text-center white start-top">
+            <span class="phone-hide">{{langSet.welcome}}</span>{{langSet.app_name}}
+        </h3>
+        <div class="start-center">
+        <div class="login-item">
+            <label>
+                {{langSet.user_label}}：
+                <input type="text" name="userAccount" ng-model="userAccount" ng-change="inputChange()" ng-pattern="/^[a-zA-Z0-9\-\_]{3,15}$/" required ng-minlength="3" ng-maxlength="15" ng-class="{'error':loginForm.userAccount.$touched && loginForm.userAccount.$invalid}" autoFill id="userAccount"/>
+            </label>
+        </div>
+        <div class="login-item">
+            <label>
+                {{langSet.pwd_label}}：
+                <input type="password" name="userPwd" ng-model="userPwd" ng-change="inputChange()" required ng-minlength="6" ng-maxlength="15" ng-class="{'error':loginForm.userPwd.$touched && loginForm.userPwd.$invalid}" autoFill id="userPwd"/>
+            </label>
+        </div>
+        <div class="login-item">
+            <label>
+                {{langSet.lang_label}}：
+                <select type="text" name="language" ng-model="language">
+                    <option ng-repeat="lang in languages" value="{{lang.value}}" ng-selected="{{lang.value==language}}">{{lang.disc}}</option>
+                </select>
+            </label>
+        </div>
+        </div>
+        <p class="text-center start-button">
+            <button  class="btn btn-default" type="submit" ng-disabled="loginForm.$invalid">
+                <span class="glyphicon glyphicon-hand-right"></span>&nbsp;{{langSet.login_label}}
+            </button>
+        </p>
+        <p class="text-center old-version phone-hide"><a href="../beneEntryInterface/login" target="_self">{{langSet.old_version_label}}</a></p>
+        <p class="text-center loginTip">{{loginTip}}</p>
+    </form>
+</div>

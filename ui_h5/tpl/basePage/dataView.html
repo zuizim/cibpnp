@@ -1,0 +1,170 @@
+<div class="table">
+    <ul class="list-inline filter-option pull-right">
+        <li class="phone-hide"><label ng-hide="isIE">{{langSet.filter_label}}：</label></li>
+        <li class="phone-hide"><label ng-show="isIE">{{langSet.record_id_label}}：</label><input type="text" placeholder="{{langSet.record_id_label}}" ng-model="filterKey.DataID" ng-change="viewFilter(caseDatas)"></li>
+        <li class="phone-hide"><label ng-show="isIE">{{langSet.patient_name_label}}：</label><input type="text" placeholder="{{langSet.patient_name_label}}" ng-model="filterKey.PatientName" ng-change="viewFilter(caseDatas)"></li>
+        <li class="pad-hide"><label>{{langSet.from}}：<input type="date" ng-model="filterItems.startDate" ng-class="{'error':filterItems.startDate>filterItems.endDate}"></label></li>
+        <li class="pad-hide"><label>{{langSet.to}}：<input type="date" ng-model="filterItems.endDate" ng-class="{'error':filterItems.startDate>filterItems.endDate}"></label></li>
+    </ul>
+    <form class="time-period">
+        <label class="special-time pad-hide"><span class="glyphicon glyphicon-hand-right"></span>&nbsp;<button class="btn btn-sm btn-success" type="button" ng-click="getDefaultCase()" ng-disabled="filterItems.startDate>filterItems.endDate || !dataFinished">{{langSet.refresh_data_label}}</button></label>
+        <label><input type="radio" name="timePeriod" ng-model="filterItems.timePeriod" ng-value="period.today">{{langSet.today}}</label>
+        <label><input type="radio" name="timePeriod" ng-model="filterItems.timePeriod" ng-value="period.yesterday">{{langSet.yesterday}}</label>
+        <label class="pad-hide"><input type="radio" name="timePeriod" ng-model="filterItems.timePeriod" ng-value="period.twoDaysAgo">{{langSet.twoDaysAgo}}</label>
+        <label class="pad-hide"><input type="radio" name="timePeriod" ng-model="filterItems.timePeriod" ng-value="period.thisWeek">{{langSet.thisWeek}}</label>
+        <label class="phone-hide"><input type="radio" name="timePeriod" ng-model="filterItems.timePeriod" ng-value="period.lastWeek">{{langSet.lastWeek}}</label>
+        <label class="pad-hide"><input type="radio" name="timePeriod" ng-model="filterItems.timePeriod" ng-value="period.thisMonth">{{langSet.thisMonth}}</label>
+        <label class="phone-hide"><input type="radio" name="timePeriod" ng-model="filterItems.timePeriod" ng-value="period.lastMonth">{{langSet.lastMonth}}</label>
+        <label class="phone-hide"><input type="radio" name="timePeriod" ng-model="filterItems.timePeriod" ng-value="period.all">{{langSet.all}}</label>
+    </form>
+
+    <p class="category"><b>{{langSet.data_status.Data_Diagnosing}} ...</b></p>
+    <table class="table table-bordered table-responsive table-hover caseData">
+        <thead>
+        <tr>
+            <th>{{langSet.record_id_label}}<a href="#" onclick="return false;"     ng-click="sort(0,caseDatas,$event,'DataID')" ><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.patient_name_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'PatientName')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.gender_label}}<a href="#" onclick="return false;" onfocus="this.blur();"        ng-click="sort(0,caseDatas,$event,'PatientGender')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.record_type_label}}<a href="#" onclick="return false;" onfocus="this.blur();"   ng-click="sort(0,caseDatas,$event,'DataTypeID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.submit_time_label}}<a href="#" onclick="return false;" onfocus="this.blur();"   ng-click="sort(0,caseDatas,$event,'SubmitTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.record_clinic_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort(0,caseDatas,$event,'DataClinic')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.dgs_time_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'DiagnosedTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==1" class="phone-hide">{{langSet.upload_hospital_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'DGSHospitalID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==2" class="phone-hide">{{langSet.dgs_hospital_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'DGSHospitalID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==1" class="phone-hide">{{langSet.operator_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'UserID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==2" class="phone-hide">{{langSet.dgs_doctor_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'UserID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="caseData in pageDiagnosingDatas | filter:{DataID:caseCodeID}|filter:{PatientName:patientNameID}|filter:{analyseDoctor:analyseDoctorID}">
+            <td><a href="#" onclick="return false;" ng-click="showCaseById(caseData)" data-toggle="modal" data-target="#myModal">{{caseData.DataID}}</a></td>
+            <td>{{caseData.PatientName}}</td>
+            <td class="pad-hide">{{caseData.PatientGenderDesc}}</td>
+            <td>{{caseData.DataType}}</td>
+            <td>{{caseData.SubmitTime}}</td>
+            <td class="pad-hide">{{caseData.DataClinic}}</td>
+            <td class="pad-hide">{{caseData.DiagnosingTime}}</td>
+            <td ng-show="userGroupID==1" class="phone-hide">{{userInfo.HospitalName}}</td>
+            <td ng-show="userGroupID==2" class="phone-hide">{{userInfo.HospitalName}}</td>
+            <td ng-show="userGroupID==1" class="phone-hide">{{caseData.UserName}}</td>
+            <td ng-show="userGroupID==2" class="phone-hide">{{caseData.DGSUserName}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <my-pagination page-config="pagerConfig2" page-codes="pagerCodes2"></my-pagination>
+
+    <p class="category"><b>{{langSet.data_status.Data_Diagnosed}} ...</b></p>
+    <table class="table table-bordered table-responsive table-hover caseData">
+        <thead>
+        <tr>
+            <th>{{langSet.record_id_label}}<a href="#" onclick="return false;"     ng-click="sort(0,caseDatas,$event,'DataID')" ><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.patient_name_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'PatientName')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.gender_label}}<a href="#" onclick="return false;" onfocus="this.blur();"        ng-click="sort(0,caseDatas,$event,'PatientGender')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.record_type_label}}<a href="#" onclick="return false;" onfocus="this.blur();"   ng-click="sort(0,caseDatas,$event,'DataTypeID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.submit_time_label}}<a href="#" onclick="return false;" onfocus="this.blur();"   ng-click="sort(0,caseDatas,$event,'SubmitTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.record_clinic_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort(0,caseDatas,$event,'DataClinic')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.dgs_time_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'DiagnosedTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==1" class="phone-hide">{{langSet.upload_hospital_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'DGSHospitalID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==2" class="phone-hide">{{langSet.dgs_hospital_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'DGSHospitalID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==1" class="phone-hide">{{langSet.operator_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'UserID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==2" class="phone-hide">{{langSet.dgs_doctor_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'UserID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="caseData in pageDiagnosedDatas | filter:{DataID:caseCodeID}|filter:{PatientName:patientNameID}|filter:{analyseDoctor:analyseDoctorID}">
+            <td><a href="#" onclick="return false;" ng-click="showCaseById(caseData)" data-toggle="modal" data-target="#myModal">{{caseData.DataID}}</a></td>
+            <td>{{caseData.PatientName}}</td>
+            <td class="pad-hide">{{caseData.PatientGenderDesc}}</td>
+            <td>{{caseData.DataType}}</td>
+            <td>{{caseData.SubmitTime}}</td>
+            <td class="pad-hide">{{caseData.DataClinic}}</td>
+            <td class="pad-hide">{{caseData.DiagnosingTime}}</td>
+            <td ng-show="userGroupID==1" class="phone-hide">{{userInfo.HospitalName}}</td>
+            <td ng-show="userGroupID==2" class="phone-hide">{{userInfo.HospitalName}}</td>
+            <td ng-show="userGroupID==1" class="phone-hide">{{caseData.UserName}}</td>
+            <td ng-show="userGroupID==2" class="phone-hide">{{caseData.DGSUserName}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <my-pagination page-config="pagerConfig3" page-codes="pagerCodes3"></my-pagination>
+    <p class="category">
+        <b>{{langSet.data_status.Data_Retrieved}} ...</b>
+    </p>
+    <table class="table table-bordered table-responsive table-hover caseData">
+        <thead>
+        <tr>
+            <th>{{langSet.record_id_label}}<a href="#" onclick="return false;"     ng-click="sort(0,caseDatas,$event,'DataID')" ><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.patient_name_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'PatientName')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.gender_label}}<a href="#" onclick="return false;" onfocus="this.blur();"        ng-click="sort(0,caseDatas,$event,'PatientGender')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.record_type_label}}<a href="#" onclick="return false;" onfocus="this.blur();"   ng-click="sort(0,caseDatas,$event,'DataTypeID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.submit_time_label}}<a href="#" onclick="return false;" onfocus="this.blur();"   ng-click="sort(0,caseDatas,$event,'SubmitTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.record_clinic_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort(0,caseDatas,$event,'DataClinic')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.dgs_time_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'DiagnosedTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==1" class="phone-hide">{{langSet.upload_hospital_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'DGSHospitalID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==2" class="phone-hide">{{langSet.dgs_hospital_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'DGSHospitalID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==1" class="phone-hide">{{langSet.operator_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'UserID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==2" class="phone-hide">{{langSet.dgs_doctor_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'UserID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="caseData in pageRetrievedDatas |filter:{DataID:caseCodeID}|filter:{PatientName:patientNameID}|filter:{analyseDoctor:analyseDoctorID}">
+            <td><a href="#" onclick="return false;" ng-click="showCaseById(caseData)" data-toggle="modal" data-target="#myModal">{{caseData.DataID}}</a></td>
+            <td>{{caseData.PatientName}}</td>
+            <td class="pad-hide">{{caseData.PatientGenderDesc}}</td>
+            <td>{{caseData.DataType}}</td>
+            <td>{{caseData.SubmitTime}}</td>
+            <td class="pad-hide">{{caseData.DataClinic}}</td>
+            <td class="pad-hide">{{caseData.DiagnosingTime}}</td>
+            <td ng-show="userGroupID==1" class="phone-hide">{{userInfo.HospitalName}}</td>
+            <td ng-show="userGroupID==2" class="phone-hide">{{userInfo.HospitalName}}</td>
+            <td ng-show="userGroupID==1" class="phone-hide">{{caseData.UserName}}</td>
+            <td ng-show="userGroupID==2" class="phone-hide">{{caseData.DGSUserName}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <my-pagination page-config="pagerConfig4" page-codes="pagerCodes4"></my-pagination>
+    <div ng-show="userGroupID==1">
+    <p class="category">
+        <b>{{langSet.data_status.Data_Uploaded}} ...</b>
+    </p>
+    <table class="table table-bordered table-responsive table-hover caseData">
+        <thead>
+        <tr>
+            <th>{{langSet.record_id_label}}<a href="#" onclick="return false;"     ng-click="sort(0,caseDatas,$event,'DataID')" ><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.patient_name_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'PatientName')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.gender_label}}<a href="#" onclick="return false;" onfocus="this.blur();"        ng-click="sort(0,caseDatas,$event,'PatientGender')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.record_type_label}}<a href="#" onclick="return false;" onfocus="this.blur();"   ng-click="sort(0,caseDatas,$event,'DataTypeID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.submit_time_label}}<a href="#" onclick="return false;" onfocus="this.blur();"   ng-click="sort(0,caseDatas,$event,'SubmitTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.record_clinic_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort(0,caseDatas,$event,'DataClinic')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.dgs_time_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'DiagnosedTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==1" class="phone-hide">{{langSet.upload_hospital_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'DGSHospitalID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==2" class="phone-hide">{{langSet.dgs_hospital_label}}<a href="#" onclick="return false;" onfocus="this.blur();"  ng-click="sort(0,caseDatas,$event,'DGSHospitalID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==1" class="phone-hide">{{langSet.operator_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'UserID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th ng-show="userGroupID==2" class="phone-hide">{{langSet.dgs_doctor_label}}<a href="#" onclick="return false;" onfocus="this.blur();"      ng-click="sort(0,caseDatas,$event,'UserID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="caseData in pageUploadedDatas |filter:{DataID:caseCodeID}|filter:{PatientName:patientNameID}|filter:{analyseDoctor:analyseDoctorID}">
+            <td><a href="#" onclick="return false;" ng-click="showCaseById(caseData)" data-toggle="modal" data-target="#myModal">{{caseData.DataID}}</a></td>
+            <td>{{caseData.PatientName}}</td>
+            <td class="pad-hide">{{caseData.PatientGenderDesc}}</td>
+            <td>{{caseData.DataType}}</td>
+            <td>{{caseData.SubmitTime}}</td>
+            <td class="pad-hide">{{caseData.DataClinic}}</td>
+            <td class="pad-hide">{{caseData.DiagnosingTime}}</td>
+            <td ng-show="userGroupID==1" class="phone-hide">{{userInfo.HospitalName}}</td>
+            <td ng-show="userGroupID==2" class="phone-hide">{{userInfo.HospitalName}}</td>
+            <td ng-show="userGroupID==1" class="phone-hide">{{caseData.UserName}}</td>
+            <td ng-show="userGroupID==2" class="phone-hide">{{caseData.DGSUserName}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <my-pagination page-config="pagerConfig1" page-codes="pagerCodes1"></my-pagination>
+    </div>
+    <div class="backToTop">
+        <back-top></back-top>
+    </div>
+</div>
+
+
+<div ng-include="'tpl/subPage/singleCase.html'"></div>

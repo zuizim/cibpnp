@@ -1,0 +1,38 @@
+<nav aria-label="Page navigation text-center" ng-hide="pageConfig.totalItems<=5">
+    <ul class="pagination pagination-sm">
+        <li ng-class="{disabled:pageConfig.start==0}"  ng-click="jumpToFirst()">
+            <a href="#" onclick="return false;" aria-label="First">
+                <span aria-hidden="true">{{langSet.first_page}}</span>
+            </a>
+        </li>
+        <li ng-class="{disabled:pageConfig.start==0}"  ng-click="jumpToPrev()">
+            <a href="#" onclick="return false;" aria-label="Previous">
+                <span aria-hidden="true">{{langSet.pre_page}}</span>
+            </a>
+        </li>
+        <li ng-repeat="pageNum in pageCodes" ng-click="jumpToPage(pageNum)"  ng-class="{active:(pageConfig.start/pageConfig.itemsPerPage+1)==pageNum}" ng-hide="pageNum<(pageConfig.start/pageConfig.itemsPerPage-2)||pageNum>(pageConfig.start/pageConfig.itemsPerPage+5)">
+            <a href="#" onclick="return false;">{{pageNum}}</a>
+        </li>
+        <li ng-class="{disabled:pageConfig.totalItems<=pageConfig.itemsPerPage||pageConfig.start+pageConfig.itemsPerPage>=pageConfig.totalItems}" ng-click="jumpToNext()">
+            <a href="#" onclick="return false;" aria-label="Next">
+                <span aria-hidden="true">{{langSet.next_page}}</span>
+            </a>
+        </li>
+        <li ng-class="{disabled:pageConfig.totalItems<=pageConfig.itemsPerPage||pageConfig.start+pageConfig.itemsPerPage>=pageConfig.totalItems}" ng-click="jumpToLast()">
+            <a href="#" onclick="return false;" aria-label="First">
+                <span aria-hidden="true">{{langSet.last_page}}</span>
+            </a>
+        </li>
+        <li class="pager-special tiny-screen">
+            <a href="#" onclick="return false;">&nbsp;{{langSet.total_label}} {{pageConfig.totalItems}} {{langSet.recordCount_label}}, {{langSet.jump_label}} <input type="text" ng-model="targetPage" placeholder="{{pageConfig.start/pageConfig.itemsPerPage+1}}" ng-blur="jumpToPage(targetPage)" ng-pattern="/^[1-9][0-9]*$/"> {{langSet.page_label}}
+                <span ng-hide="isIE">
+                    , {{langSet.eachPage_label}}
+                    <select name="itemsPerPage" ng-model="pageConfig.itemsPerPage">
+                        <option ng-repeat="itemNum in itemNumOptions track by itemNum" value="{{itemNum}}" ng-selected="{{pageConfig.itemsPerPage==itemNum}}">{{itemNum}}</option>
+                    </select>{{langSet.record_label}}
+                </span>
+            </a>
+        </li>
+
+    </ul>
+</nav>

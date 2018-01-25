@@ -1,0 +1,17 @@
+<span class="multi-selection">
+    <div class="multi-container">
+        <div class="input">
+            <a href="#" onclick="return false;" ng-click="toggleStatus()"  class="toggle-bar">
+                {{configParam.selectedOptions}}
+                <span class="glyphicon glyphicon-chevron-down toggle-button"></span>
+            </a>
+        </div>
+        <div ng-show="configParam.isShowed" class="items-container">
+            <p class="select-row" ng-repeat="valObj in configParam['optList'] track by $index">
+                <label>
+                    <input type="checkbox" data-value="{{valObj.ID}}" ng-click="updateValue($event,valObj.ID,valObj.Name)">{{valObj.Account}}: {{valObj.Name}}
+                </label>
+            </p>
+        </div>
+    </div>
+</span>

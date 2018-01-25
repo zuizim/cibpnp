@@ -1,0 +1,50 @@
+<div class="modal fade newAccount" id="groupBindModal" tabindex="-1" role="dialog" aria-labelledby="groupBindModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a href="#" onclick="return false;" class="modal-dismiss" data-dismiss="modal">&times;</a></p>
+                <div class="row">
+                    <h3 class="text-center">
+                        <span ng-show="bindGroup.GroupID==6">{{langSet['operate_edit_aly_group']}}</span>
+                        <span ng-show="bindGroup.GroupID==7">{{langSet['operate_edit_opt_group']}}</span>
+                    </h3>
+                    <div class="panel panel-default search-detail">
+                        <div class="panel-body">
+                            <form novalidate onsubmit="return false;" name="groupBindForm" ng-submit="toEditGroup(bindGroup)">
+                            <table class="profile table-hover">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <span ng-show="bindGroup.GroupID==6">{{langSet['aly_group_label']}}: </span>
+                                        <span ng-show="bindGroup.GroupID==7">{{langSet['opt_group_label']}}: </span>
+                                    </td>
+                                    <td>
+                                        <b>{{bindGroup.Account +" -> "+ bindGroup.Name}}</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span ng-show="bindGroup.GroupID==6">{{langSet['userGroup_2']}}: </span>
+                                        <span ng-show="bindGroup.GroupID==7">{{langSet['userGroup_1']}}: </span>
+                                    </td>
+                                    <td> 
+                                        <div><new-checkbox source-obj="accountDatas"></new-checkbox></div> 
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p class="text-center text-danger">{{bindGroup.status}}</p>
+                            <br />
+                            <p class="text-center">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> {{langSet.close_label}}</button>
+                                <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-ok"></span> {{langSet.save_label}}</button>
+                            </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

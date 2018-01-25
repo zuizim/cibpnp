@@ -1,0 +1,45 @@
+<div class="modal fade" id="hospitalDetailModal" tabindex="-1" role="dialog" aria-labelledby="hospitalDetailModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a href="#" onclick="return false;" onfocus="this.blur();" class="modal-dismiss" data-dismiss="modal">&times;</a></p>
+                <div class="row">
+                    <h3 class="text-center">{{singleHospitalInfo.Name}}</h3>
+                    <div class="text-center clear-fix">
+                        <div id="leftCanvas"></div>
+                        <div id="rightCanvas">
+                            <div class="basic-info">
+                                <p>{{langSet.type_label}}：{{langSet.hospital_type[chartData.hospitalType]}}</p>
+                                <ul class="list-unstyled">
+                                    <li ng-show="chartData.hospitalType=='super'">. {{langSet.dgs_hospital_label}} * {{chartData.dgsHospitalNum}}家</li>
+                                    <li ng-hide="chartData.hospitalType=='operator'">. {{langSet.opt_hospital_label}} * {{chartData.optHospitalNum}}家</li>
+                                    <li ng-hide="chartData.hospitalType=='operator'">. {{langSet.dgs_doctor_label}} * {{chartData.analyserNum}}名</li>
+                                    <li>. {{langSet.opt_doctor_label}} * {{chartData.operatorNum}}名</li>
+                                </ul>
+                            </div>
+                            <div id="rightTopCanvas"></div>
+                            <div id="rightBottomCanvas"></div>
+                        </div>
+                    </div>
+                   <p class="text-center hospital-config-option">
+                       <label><span class="glyphicon glyphicon-hand-right text-danger"></span><span> {{langSet.select_period_label}}:</span></label>
+                       <label><input type="radio" name="chartPeriod" ng-model="chartConfig.period" ng-value="chartPeriod.day" >{{langSet.one_day_label}}</label>
+                       <label><input type="radio" name="chartPeriod" ng-model="chartConfig.period" ng-value="chartPeriod.week" >{{langSet.one_week_label}}</label>
+                       <label><input type="radio" name="chartPeriod" ng-model="chartConfig.period" ng-value="chartPeriod.month" >{{langSet.one_month_label}}</label>
+                       <label><input type="radio" name="chartPeriod" ng-model="chartConfig.period" ng-value="chartPeriod.season">{{langSet.one_season_label}}</label>
+                       <label><input type="radio" name="chartPeriod" ng-model="chartConfig.period" ng-value="chartPeriod.halfYear">{{langSet.half_year_label}}</label>
+                       <label><input type="radio" name="chartPeriod" ng-model="chartConfig.period" ng-value="chartPeriod.year">{{langSet.one_year_label}}</label>
+                       <label>
+                           <span class="glyphicon glyphicon-hand-right text-danger"></span>
+                           <span> {{langSet.select_chart_type_label}}：</span>
+                       </label>
+                       <label><input type="radio" name="chartType" ng-model="chartConfig.type" ng-value="chartType.bar" >{{langSet.bar_label}}</label>
+                       <label><input type="radio" name="chartType" ng-model="chartConfig.type" ng-value="chartType.line"  >{{langSet.line_label}}</label>
+                       <a href="#" onclick="return false;" onfocus="this.blur();" class="pull-right" data-dismiss="modal">&times;</a>
+                   </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,167 @@
+  <div class="row" ng-hide="profileEditing">
+      <div class="col-sm-12">
+          <h3 class="text-center white phone-hide">{{langSet.title_my_profile}}</h3>
+          <br/>
+      </div>
+      <div class="col-sm-8 col-sm-offset-2">
+          <div class="panel panel-default search-detail">
+              <div class="panel-heading text-center"><span class="glyphicon glyphicon-hand-down"></span></div>
+              <div class="panel-body">
+                  <table class="profile table-hover">
+                      <tbody><tr>
+                          <td>{{langSet.account_label}}：</td>
+                          <td>{{userInfo.Account}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.group_label}}：</td>
+                          <td>{{userGroupName}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.hospital_label}}：</td>
+                          <td>{{userInfo.HospitalName}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.name_label}}：</td>
+                          <td>{{userInfo.Name}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.gender_label}}：</td>
+                          <td>{{langSet.gender_list[userInfo.Gender]}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.age_label}}：</td>
+                          <td>{{userInfo.Age?userInfo.Age:""}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.create_time_label}}：</td>
+                          <td>{{userInfo.CreateTime}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.login_count_label}}：</td>
+                          <td>{{userInfo.LoginCount}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.ip_label}}：</td>
+                          <td>{{userInfo.LastLoginIp}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.mac_label}}：</td>
+                          <td>{{userInfo.LastLoginMac}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.client_label}}：</td>
+                          <td>{{userInfo.LastLoginClient}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.login_time_label}}：</td>
+                          <td>{{userInfo.LastLoginTime}}</td>
+                      </tr>
+                      <tr>
+                          <td>{{langSet.info_label}}：</td>
+                          <td>{{userInfo.Info}}</td>
+                      </tr>
+                      <tr ng-show="userGroupID==2||userGroupID==4">
+                          <td>{{langSet.dgs_bind_label}}：</td>
+                          <td>
+                              <span ng-repeat="account in accountBind">{{account.Name}};&nbsp;</span>
+                              <span ng-show="noBind">{{langSet.no_limit}}</span>
+                          </td>
+                      </tr>
+                      <tr ng-show="userGroupID==2||userGroupID==4">
+                          <td>{{langSet.download_mode_label}}：</td>
+                          <td>{{langSet.download_mode[userInfo.DownloadFlag]}}</td>
+                      </tr>
+
+                      </tbody>
+                  </table>
+                  <hr>
+
+                  <p class="text-center">
+                      <span ng-show="userGroupID==7">
+                         <a class="btn btn-warning" href="#" onclick="return false;" ng-click="toBindAlyGroup(userInfo)" data-toggle="modal" data-target="#bindAlyGroupModal"><span class="glyphicon glyphicon-paperclip"></span> {{langSet.bind_aly_group}}</a>
+                      </span>
+                      <a class="btn btn-info" href="#" onclick="return false;" ng-click="showEditProfile()"><span class="glyphicon glyphicon-edit"></span> {{langSet.edit_label}}</a>
+                  </p>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row editProfile" id="editProfile" ng-show="profileEditing">
+      <div class="col-sm-12">
+          <h3 class="text-center white" >{{langSet.user_edit_title}}</h3>
+          <br />
+      </div>
+      <div class="col-sm-8 col-sm-offset-2">
+          <div class="panel panel-default search-detail">
+              <div class="panel-heading text-center"><span class="glyphicon glyphicon-hand-down"></span><a href="#" onclick="return false;" ng-click="hideEditProfile()" class="pull-right">&times;</a></div>
+              <div class="panel-body">
+                  <form role="form" name="editProfile" novalidate onsubmit="return false;" ng-submit="toEditProfile()">
+                      <div class="temp-hidden">
+                        <!--下面2行为了隐藏自动填充用户名和密码表单，会导致BUG-->
+                        <input type="text" name="fullName" id="tempAccount" />   
+　　                     <input type="password" name="newPwd2" id="tempPassword"/>
+                        <!-- 以上两行-->
+                    </div>
+                      <table class="profile table-hover">
+                          <tbody>
+                              <tr>
+                                  <td>{{langSet.account_label}}：</td>
+                                  <td>{{userInfo.Account}}</td>
+                              </tr>
+                              <tr>
+                                  <td>{{langSet.group_label}}：</td>
+                                  <td>{{userGroupName}}</td>
+                              </tr>
+                              <tr>
+                                  <td>{{langSet.hospital_label}}：</td>
+                                  <td>{{userInfo.HospitalName}}</td>
+                              </tr>
+                              <tr>
+                                  <td>{{langSet.name_label}}：</td>
+                                  <td><input type="text" name="fullName" ng-model="edit.fullName" ng-class="{'error':editProfile.fullName.$invalid && editProfile.fullName.$touched}" ng-change="edit.status=''"></td>
+                              </tr>
+                              <tr>
+                                  <td>{{langSet.old_pwd_label}}：</td>
+                                  <td><input type="password" name="oldPwd" ng-model="edit.oldPwd" ng-minlength="6" ng-class="{'error':editProfile.oldPwd.$invalid && editProfile.oldPwd.$touched}" ng-change="edit.status=''"></td>
+                              </tr>
+                              <tr>
+                                  <td>{{langSet.new_pwd_label}}：</td>
+                                  <td><input type="password" name="newPwd" ng-model="edit.newPwd" ng-minlength="6" ng-class="{'error':editProfile.newPwd.$invalid && editProfile.newPwd.$touched}"  ng-change="edit.status=''"></td>
+                              </tr>
+                              <tr>
+                                  <td>{{langSet.re_pwd_label}}：</td>
+                                  <td><input type="password" name="newPwd2" ng-model="edit.newPwd2" ng-minlength="6"  ng-change="edit.status=''"></td>
+                              </tr>
+                              <tr>
+                                  <td>{{langSet.gender_label}}：</td>
+                                  <td>
+                                      <label><input type="radio" name="gender" ng-model="edit.gender" ng-value="0"  ng-change="edit.status=''">{{langSet.gender['Gender_Male']}}</label>
+                                      <label><input type="radio" name="gender" ng-model="edit.gender" ng-value="1"  ng-change="edit.status=''">{{langSet.gender['Gender_Female']}}</label>
+                                      <label><input type="radio" name="gender" ng-model="edit.gender" ng-value="2"  ng-change="edit.status=''">{{langSet.gender['Gender_Unknown']}}</label>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>{{langSet.patient_age_label}}：</td>
+                                  <td><input name="age" type="number" ng-maxlength="2" ng-model="edit.age" ng-class="{'error':editProfile.age.$invalid}"  ng-change="edit.status=''"></td>
+                              </tr>
+                              <tr class="phone-hide">
+                                  <td>{{langSet.info_label}}：</td>
+                                  <td><textarea name="" id="" cols="" rows="3" ng-model="edit.info" ng-change="edit.status=''"></textarea></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                      <p class="text-center text-danger">{{edit.status}}</p>
+                      <hr />
+                      <p class="text-center">
+                          <button type="button" class="btn btn-default" ng-click="resetEditProfile()"><span class="glyphicon glyphicon-repeat"></span> {{langSet.reset_label}}</button>
+                          <button type="submit" class="btn btn-info" ng-disabled="editProfile.$invalid"><span class="glyphicon glyphicon-ok"></span> {{langSet.save_label}}</button>
+                      </p>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div ng-show="userGroupID==7">
+      <div ng-include="'tpl/subPage/bindAlyGroup.html'"></div>
+  </div>

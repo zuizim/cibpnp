@@ -1,0 +1,31 @@
+<div class="navbar-footer">
+   <div class="container">
+       <div class="row">
+           <div class="col-sm-10 col-sm-offset-1 col-xs-12">
+               <h5 class="text-center">
+                   {{langSet.company_name}} &copy; {{langSet.copyright_reserved}} 
+                   <span class="pad-hide">
+                     <a href="https://www.baidu.com/s?ie=utf-8&wd=chrome" onfocus="this.blur();" class="text-info" target="_blank"><span class="glyphicon glyphicon-arrow-right"></span> {{langSet.suggest_chrome}}</a>
+                   </span>
+                </h5>           
+               <h6 class="text-center">Hangzhou Beneware Medical<span class="phone-hide"> Equipment Co.,Ltd</span></h6>
+               <h6 class="text-center">
+                    {{langSet.contact_us}}：
+                    <span class="pad-hide">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        service@beneware.net;
+                    </span>                    
+                    <span class="glyphicon glyphicon-phone-alt"></span>&nbsp;086-571-89811068                    
+                </h6>
+                <h6 class="text-center">
+                    <a href="#" onclick="return false;" data-target="#modal_message" data-toggle="modal" onclick="this.blur();">
+                        <span class="glyphicon glyphicon-grain"></span>
+                        {{langSet.suggestion_label}}                        
+                    </a>
+                </h6>
+            </div>
+        </div>          
+   </div>
+</div>
+
+<div ng-include="'tpl/include/messageModal.html'"></div>

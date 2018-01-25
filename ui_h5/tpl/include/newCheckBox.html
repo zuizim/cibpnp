@@ -1,0 +1,10 @@
+<p class="userList" ng-repeat="accountData in sourceObj | orderBy:'Account' track by $index">
+    <span class="new-checkBox" ng-class="{'box-checked':accountData.checked}" data-value="{{accountData.ID}}">
+        <a href="#" onclick="return false;" ng-click="accountData.checked = !accountData.checked">
+            <span class="box">
+                <span class="small-okay" ng-show="accountData.checked"></span>
+            </span>
+            <span>{{accountData.Account}} -> {{accountData.Name}}</span>                          
+        </a>    
+    </span>                                                                                    
+</p>

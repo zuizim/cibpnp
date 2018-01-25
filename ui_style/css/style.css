@@ -1,0 +1,352 @@
+/**
+* The css file of B.P.N.P.
+*
+* @copyright   Copyright 2012-2013 Hangzhou Beneware Medical Equiment Co,LTD (www.beneware.net)
+
+/*-----------------------BASE SETTING----------------------------*/
+body     {margin:0; text-align:left}
+fieldset {border:1px solid #b3c8dc; padding:8px 10px 8px 10px; margin-bottom:8px; color:#333;}
+legend   {font-weight:bold;}
+del{background:#fcc;}
+ins{background:#cfc; text-decoration:none}
+
+/*-----------------------LAYOUT SETTING ----------------------------*/
+.outer {margin:0px 0px 30px; text-align:left}
+.cont, .cont-lt1, .cont-lt2, .cont-lt3, .cont-lt4, .cont-lt5, .cont-rt1, .cont-rt2, .cont-rt3, .cont-rt4, .cont-rt5 {width:100%; margin:0; border:none; text-align:left}
+.cont tr, .cont td {border:none; padding:0}
+.cont-lt1 tr, .cont-lt2 tr, .cont-lt3 tr, .cont-lt4 tr, .cont-lt5 tr {border:none; padding:0}
+.cont-lt1 td, .cont-lt2 td, .cont-lt3 td, .cont-lt4 td, .cont-lt5 td {border:none; padding:0}
+.cont-rt1 tr, .cont-rt2 tr, .cont-rt3 tr, .cont-rt4 tr, .cont-rt5 tr {border:none; padding:0}
+.cont-rt1 td, .cont-rt2 td, .cont-rt3 td, .cont-rt4 td, .cont-rt5 td {border:none; padding:0}
+
+.cont-lt1 .side, .cont-rt1 .side {width:160px}
+.cont-lt2 .side, .cont-rt2 .side {width:180px}
+.cont-lt3 .side, .cont-rt3 .side {width:240px}
+.cont-lt4 .side, .cont-rt4 .side {width:300px}
+.cont-lt5 .side, .cont-rt5 .side {width:336px}
+
+.cont-lt1 .divider,.cont-lt2 .divider,.cont-lt3 .divider,.cont-lt4 .divider,.cont-lt5 .divider {width:10px}
+.cont-rt1 .divider,.cont-rt2 .divider,.cont-rt3 .divider,.cont-rt4 .divider,.cont-rt5 .divider {width:10px}
+
+.f-left   {float:left;  padding-left: 5px}
+.f-right  {float:right; padding-right:5px}
+.c-none   {clear:none;}
+.c-left   {clear:left;}
+.c-right  {clear:right;}
+.c-both   {clear:both;}
+.a-center {text-align: center;}
+.a-right  {text-align: right;}
+.a-left   {text-align: left;}
+
+.half-left  {float:left;  width:48%; text-align:left;  clear:left}
+.half-right {float:right; width:48%; text-align:right; clear:right}
+
+.hidden {display:none}
+.block  {display:block}
+.inline {display:inline}
+
+.margin-zero {margin:    0}
+.margin-10px {margin:    10px}
+.margin-15px {margin:    15px}
+.margin-20px {margin:    20px}
+.padding-zero{padding:   0}
+.padding-10px{padding:   10px}
+.padding-5px {padding:   5px}
+
+.mt-10px {margin-top:    10px}
+.mr-10px {margin-right:  10px}
+.mb-10px {margin-bottom: 10px}
+.ml-10px {margin-left:   10px}
+
+.mt-zero {margin-top:    0}
+.mr-zero {margin-right:  0}
+.mb-zero {margin-bottom: 0}
+.ml-zero {margin-left:   0}
+
+.pt-10px {padding-top:   10px}
+.pr-10px {padding-right: 10px}
+.pb-10px {padding-bottom:10px}
+.pl-10px {padding-left:  10px}
+.ph-10px {padding-left:10px; padding-right:10px}
+.pv-10px {padding-top: 10px; padding-bottom:10px}
+
+.f-12px  {font-size:12px}
+.f-14px  {font-size:14px}
+.f-16px  {font-size:16px}
+
+.f-bold {font-weight:bold}
+
+/*-----------------------FORM SETTING----------------------------*/
+.text-1 {width: 90%}
+.text-2 {width: 120px}
+.text-3 {width: 240px}
+.text-4 {width: 360px}
+.text-5 {width: 480px}
+
+.select-1 {width: 90%}
+.select-2 {width: 125px}
+.select-3 {width: 245px} 
+.select-4 {width: 360px}
+.select-5 {width: 480px}
+
+.area-1{width: 90%;}
+.area-2{width: 120px}
+.area-3{width: 240px}
+.area-4{width: 360px}
+.area-5{width: 480px}
+
+.button-s{padding:3px 20px 3px 20px}
+.button-r{padding:3px 20px 3px 20px}
+.button-c{padding:3px 20px 3px 20px}
+.button-d{color:blue}
+
+/*-----------------------TABLE SETTING----------------------------*/
+table      {border:1px solid #e4e4e4;}
+td, tr, th {border:none; border-bottom:1px solid #e4e4e4}
+tfoot      {border-top:1px solid #e4e4e4}
+
+table.sortable thead {
+    background-color:#999;
+    color:#ffffff;
+    font-weight: bold;
+    cursor: default;
+}
+
+caption     {border:1px solid #e4e4e4; background:#efefef; margin:0; padding:2px 2px 2px 10px; border-bottom:none; text-align:left; font-weight:bold; font-size:14px;}
+.caption-tr {caption-side:top; text-align:right; border:none; background:none;}
+.caption-tl {caption-side:top; text-align:left;  border:none; background:none;}
+
+.table-1 {width:100%; margin-bottom:10px}
+.table-2 {width:240px;margin-bottom:10px}
+.table-3 {width:360px;margin-bottom:10px}
+.table-4 {width:480px;margin-bottom:10px}
+.table-5 {width:600px;margin-bottom:10px}
+.table-6 {width:800px;margin-bottom:10px}
+
+.table-1 tr, .table-2 tr, .table-3 tr, .table-4 tr, .table-5 tr {padding:3px 3px 3px 3px}
+.table-1 td, .table-2 td, .table-3 td, .table-4 td, .table-5 td {padding:3px 3px 3px 3px}
+.table-1 th, .table-2 th, .table-3 th, .table-4 th, .table-5 th {padding:3px 3px 3px 3px}
+
+.colhead td  {text-align:center; background-color:#efefef;}
+.colhead th  {text-align:center; background-color:#efefef; font-size:12px; font-weight:bold; border-bottom:1px solid #e4e4e4}
+.colhead a   {text-decoration:none; display:block;}
+.colhead th a{color:#333; font-size:12px;}
+.colhead th a:hover{color:#F30;}
+
+.rowhead {font-weight:bold; text-align:right; width:100px; border-right:1px solid #e4e4e4}
+.side .rowhead {width:20%}
+
+.fixed {table-layout:fixed}
+.nobr                     {overflow:hidden; white-space:nowrap;}
+.fixed th, .fixed td      {overflow:hidden; white-space:nowrap;}
+.nofixed th, .nofixed td  {overflow:visible; white-space:normal}
+
+.odd     {background:#fff;}
+.even    {background:#f1f1f1;}
+.hoover  {background:#d0dee3;}
+.clicked {background:#fce6a2;}
+
+fieldset .rowhead {border:none}
+fieldset table    {border:none}
+fieldset .table-1 {margin:0;}
+fieldset .bd-1px, fieldset .bd-1px td, fieldset .bd-1px th {border:1px solid #b3c8dc; padding:2px}
+fieldset tr, fieldset td, fieldset th {border:none; padding:2px}
+
+/* copyed from tablesorter plugin. */
+table.tablesorter thead tr div{padding:0; margin:0} 
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {color:red;}
+table.tablesorter thead tr .headerSortDown a, table.tablesorter thead tr .headerSortUp a {color:red}
+table.tablesorter thead tr .header         {background-image: url(./images/tablesorter/bg.gif);   background-repeat: no-repeat; background-position: center right; cursor: pointer;}
+table.tablesorter thead tr .headerSortUp   {background-image: url(./images/tablesorter/asc.gif);  background-repeat: no-repeat; background-position: center right; cursor: pointer;}
+table.tablesorter thead tr .headerSortDown {background-image: url(./images/tablesorter/desc.gif); background-repeat: no-repeat; background-position: center right; cursor: pointer;}
+
+/*-----------------------WIDTH SETTING--------------------------*/
+.w-p5  {width: 5%}
+.w-p10 {width: 10%}
+.w-p15 {width: 15%}
+.w-p20 {width: 20%}
+.w-p25 {width: 25%}
+.w-p30 {width: 30%}
+.w-p35 {width: 35%}
+.w-p40 {width: 40%}
+.w-p45 {width: 45%}
+.w-p50 {width: 50%}
+.w-p55 {width: 55%}
+.w-p60 {width: 60%}
+.w-p65 {width: 65%}
+.w-p70 {width: 70%}
+.w-p75 {width: 75%}
+.w-p80 {width: 80%}
+.w-p85 {width: 85%}
+.w-p90 {width: 90%}
+.w-p100 {width: 100%}
+
+.w-20px {width:20px}
+.w-30px {width:30px}
+.w-35px {width:35px}
+.w-40px {width:40px}
+.w-45px {width:45px}
+.w-50px {width:50px}
+.w-60px {width:60px}
+.w-70px {width:70px}
+.w-80px  {width:80px}
+.w-100px {width:100px}
+.w-120px {width:120px}
+.w-130px {width:130px}
+.w-140px {width:140px}
+.w-150px {width:150px}
+.w-200px {width:200px}
+
+.w-id       {width:45px;}
+.w-pri      {width:30px;}
+.w-severity {width:40px;}
+.w-hour     {width:40px;}
+.w-date     {width:70px;}
+.w-user     {width:60px;}
+.w-status   {width:50px}
+.w-type     {width:80px}
+.w-resolution{width:60px}
+
+/*-----------------------BORDER SETTING--------------------------*/
+.bd-1px    {border:1px        solid}
+.bt-1px    {border-top:1px    solid}
+.bl-1px    {border-left:1px   solid}
+.bb-1px    {border-bottom:1px solid}
+.br-1px    {border-right:1px  solid}
+.bd-none   {border:none}
+.bd-green  {border-color:#58CB64}
+.bd-yellow {border-color:#F4BF20}
+.bd-blue   {border-color:#64B7D7}
+.bd-gray   {border-color:#bcbcbc;}
+
+/*-----------------------BACKGROUND SETTING----------------------------*/
+.bg-green  {background-color:#DDF1D8;}
+.bg-blue   {background-color:#DEEEF4}
+.bg-yellow {background-color:#FBF5C6;}
+.bg-gray   {background-color:#efefef;}
+.bg-white  {background-color:white;}
+
+/*-----------------------COLOR SETTING----------------------------*/
+.red     {color:red;}
+.blue    {color:blue}
+.yellow  {color:yellow;}
+.gray    {color:gray;}
+.green   {color:green;}
+.star    {color:red; font-size:18px; font-weight:bold;}
+.warning {background:yellow; color:red; font-weight:bold}
+
+/*-----------------------SPECIAL PART SETTING--------------------*/
+/* Header. */
+#header{margin-bottom:5px; padding:2px 10px 0 10px; background:#16528b; border-bottom:1px solid #e4e4e4;}
+
+/* Top bar. */
+#topbar, #topbar a {color:#fff}
+#topbar {margin-bottom:2px}
+#topbar select {border:none; color:white; background:#16528b}
+#topbar a {text-decoration:none;}
+
+/* The nav bar. */
+#navbar ul {margin:0; padding:0;} 
+#navbar li {margin:0; padding:0; float:left; text-align:center; list-style-type:none;}
+#navbar a  {text-decoration:none;}
+#navbar a:hover {color:#ff3600;}
+
+/* Main menu. */
+#mainmenu ul {background-color:#1d64ad; height:31px; line-height:31px}
+#mainmenu li {padding:0 8px 0 8px; border-right:3px solid #002242; color:white; font-size:14px;}
+#mainmenu a  {color:white; font-weight:normal;}
+#mainmenu .active   {background-color:#EDEFF4;}
+#mainmenu .active a {color:#009900; font-weight:bold;}
+
+#mainmenu #searchbox{float:right; border:none;}
+#mainmenu .button-s{border:none; padding:2px}
+
+#searchType  {margin-top:2px; border:1px solid gray; color:#e4e4e4; background:#1d64ad}
+#searchQuery {height:18px; border:1px solid gray; color:#e4e4e4; background:#1d64ad}
+
+/* Module menu. */
+#modulemenu    {color:#F30; margin-bottom:0px; font-size:14px;}
+#modulemenu ul {background-color:#EDEFF4; height:28px; line-height:28px;}
+#modulemenu li {padding:0 5px 0 5px;}
+#modulemenu a  {color:#111; font-weight:normal; font-size:14px;}
+#modulemenu .active a {color:#009900; font-weight:bold;}
+#modulemenu .right    {float:right; font-weight:bold;}
+#modulemenu .right  a {color:red; font-weight:bold}
+
+/* Product, project and objects switcher. */
+#productID {background:#EDEFF4; border:1px solid #e4e4e4}
+#projectID {background:#EDEFF4; border:1px solid #e4e4e4}
+#productSwitcher{padding:0; width:35px}
+#projectSwitcher{padding:0; width:35px}
+#objectSwitcher {padding:0; width:35px}
+
+/* Feature bar. */
+#featurebar {margin: 0 0 5px 0; background-color:#EDF3FE; height:28px; line-height:28px; cursor:pointer; padding-top:0px;}
+#featurebar a              {text-decoration:none; color:#000; margin-right:3px;}
+#featurebar a:hover        {color:#ff3600; border-color:#F30;}
+#featurebar .f-right a     {color:red; font-weight:bold;}
+#featurebar #bysearchTab a {padding-left:10px; padding-right:10px}
+#featurebar select         {font-size:12px; height:22px; margin-top:3px;}
+
+#featurebar .active a       {color:#009900; font-weight:bold;}
+#featurebar .active select  {border:3px solid #009900;}
+
+/* Tree menu. */
+#tree li      {list-style-type:none;}
+#tree .active {color:blue; font-weight:bold}
+
+/* Title bar. */
+#titlebar {font-size:14px; font-weight:bold; background-color:#efefef; padding:0px 5px; margin:10px 0; height:30px; line-height:30px;}
+#titlebar #main {float:left;  width:70%; clear:none; text-align:left}
+#titlebar div   {float:right; width:30%; clear:none; text-align:right}
+#titlebar #main input {font-size:14px}
+#titlebar .text-1 {width:80%}
+
+/* Product, project switcher. */
+#switcher {color:white; font-style:bold; background:red; cursor:pointer;}
+
+/* Other items. */
+#actionbox .button-c {font-size:9px; height:20px; padding:0 5px 0 5px}
+.history, .changes   {border:1px solid #ccc; background:#f2f2f2; padding:10px; margin-top:10px; margin-bottom:10px; color:#333; line-height:20px;}
+.history  .changes   {border:none; margin:0; padding:0}
+.content {font-size:14px; padding:10px}
+.content p {margin:0}
+.roadmap {width:200px; margin:10px auto 10px auto; padding:10px; border:1px solid gray;}
+.roadmap a{color:white;}
+.release {background:darkgreen; color:white}
+.plan    {background:#9F9F5F;}
+.search  {display:block; float:left; clear:none; width:16px; height:16px; padding:0; margin:0 0 0 2px; text-indent:-2000px; overflow:hidden; background: url(images/main/search.gif) no-repeat;} 
+.searchleft{display:block; float:left; clear:none;} 
+.helplink {font-size:9px}
+#bysearchTab a{color:red}
+
+.tabs a{display:block; width:80%; margin:auto auto 10px auto; padding:5px; border:1px solid blue; text-decoration:none; overflow:hidden; white-space:nowrap; text-align:center}
+.tabs a.current {background:green; color:white}
+
+/* Footer. */
+#divider   {margin-bottom:30px}
+#footer    {width:100%; position:fixed; bottom:0; left:0; margin:0; color:#333; background-color:#FBF5C6; border-top:1px solid #F4BF20;}
+#crumbs    {padding:5px 0 5px 10px;}
+#poweredby {margin-top:5px;} 
+
+/* Debug. */
+.debugwin  {display:block; width:200px; height:20px; position:fixed; bottom:27px; border-left:10px solid red}
+
+/* Pager. */
+.pager {margin-bottom:0}
+
+/*-----------------------OTHERS SETTINGS --------------------*/
+.box-title  {border:1px solid #e4e4e4; background-color:#efefef; margin:0; padding:4px; border-bottom:none; text-align:left; font-weight:bold; color:#333;}
+.box-content{border:1px solid #e4e4e4; padding:5px}
+.done      {color:#078F0E;}
+.wait      {color:#888;}
+.doing     {color:#F30;}
+.delayed   {background:#93D5F9;}
+.pass      {color:#078F0E;}
+.blocked   {background:yellow;}
+.fail      {color:red}
+.hand      {cursor:pointer}
+.strong    {font-weight:bold}
+.deleted   {text-decoration:line-through}
+.linkbox a {display:block}
+.owner     {background:#e4e4e4; font-size:smaller}

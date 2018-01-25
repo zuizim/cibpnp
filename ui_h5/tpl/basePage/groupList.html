@@ -1,0 +1,63 @@
+<div class="table small-word">
+    <ul class="list-inline filter-option pull-right pad-hide">
+        <li>
+            <label>
+                <span class="glyphicon glyphicon-hand-right"></span>&nbsp;
+                <a href="#" class="white create-new" onclick="return false;" onfocus="this.blur();" data-toggle="modal" data-target="#addNewGroupAccount">
+                    <span  ng-show="userGroupID == 3">{{langSet.create_opt_group_admin_title}}</span>
+                    <span  ng-show="userGroupID == 4">{{langSet.create_aly_group_admin_title}}</span>
+                </a>
+            </label>
+        </li>
+        <li class="phone-hide"><label>{{langSet.filter_label}} :</label></li>
+        <li class="phone-hide"><input type="text" placeholder="{{langSet.id_label}}" ng-model="groupAccountID"></li>
+        <li class="phone-hide"><input type="text" placeholder="{{langSet.account_label}}" ng-model="groupAccountInfo"></li>
+    </ul>
+    <table class="table table-bordered table-responsive table-hover caseData">
+        <thead>
+        <tr>
+            <th class="phone-hide">{{langSet.id_label}}<a href="#" onclick="return false;"          ng-click="easySort($event,'ID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.account_label}}<a href="#" onclick="return false;"     ng-click="easySort($event,'Account')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.name_label}}<a href="#" onclick="return false;"        ng-click="easySort($event,'Name')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.gender_label}}<a href="#" onclick="return false;"      ng-click="easySort($event,'Gender')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.age_label}}<a href="#" onclick="return false;"         ng-click="easySort($event,'Age')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.group_label}}<a href="#" onclick="return false;"       ng-click="easySort($event,'GroupID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="phone-hide" >{{langSet.create_time_label}}<a href="#" onclick="return false;" ng-click="easySort($event,'CreateTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.login_count_label}}<a href="#" onclick="return false;" ng-click="easySort($event,'LoginCount')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="phone-hide" >{{langSet.login_time_label}}<a href="#" onclick="return false;"  ng-click="easySort($event,'LastLoginTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.ip_label}}<a href="#" onclick="return false;"          ng-click="easySort($event,'LastLoginIP')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide" >{{langSet.mac_label}}<a href="#" onclick="return false;"         ng-click="easySort($event,'LastLoginMac')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="phone-hide" >{{langSet.client_label}}<a href="#" onclick="return false;"      ng-click="easySort($event,'LastLoginClient')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th class="pad-hide">{{langSet.operation_label}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="groupAccountData in pageGroupAccountDatas | filter:{ID:groupAccountID}|filter:{Account:groupAccountInfo}|filter:{Name:groupAccountFullName}|orderBy:sortByWord:descToggle">
+            <td class="phone-hide">{{groupAccountData.ID}}</td>
+            <td><a href="#" onclick="return false;" onfocus="this.blur();" ng-click="showAccountInfo(groupAccountData)"  data-toggle="modal" data-target="#accountModal">{{groupAccountData.Account}}</a></td>
+            <td>{{groupAccountData.Name}}</td>
+            <td>{{langSet.gender_list[groupAccountData.Gender]}}</td>
+            <td>{{groupAccountData.Age?groupAccountData.Age:""}}</td>
+            <td class="pad-hide">{{langSet.role_list[groupAccountData.GroupID]}}</td>
+            <td class="phone-hide" >{{groupAccountData.CreateTime}}</td>
+            <td class="pad-hide">{{groupAccountData.LoginCount}}</td>
+            <td class="phone-hide" >{{groupAccountData.LastLoginTime}}</td>
+            <td class="pad-hide">{{groupAccountData.LastLoginIp}}</td>
+            <td class="pad-hide" >{{groupAccountData.LastLoginMac}}</td>
+            <td class="phone-hide" >{{groupAccountData.LastLoginClient}}</td>
+            <td class="pad-hide">
+                <a href="#" onclick="return false;" onfocus="this.blur();" ng-click="toEditGroupUser(groupAccountData)" class="btn btn-default btn-sm" data-toggle="modal" data-target="#groupBindModal">
+                    <span ng-show="userGroupID==3">{{langSet.operate_edit_opt_group}}</span>
+                    <span ng-show="userGroupID==4">{{langSet.operate_edit_aly_group}}</span>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+        <my-pagination page-config="pagerConfig2" page-codes="pagerCodes2"></my-pagination>
+    </table>
+</div>
+
+<div ng-include="'tpl/subPage/singleAccount.html'"></div>
+<div ng-include="'tpl/subPage/addNewAccount.html'"></div>
+<div ng-include="'tpl/subPage/addNewGroupAccount.html'"></div>
+<div ng-include="'tpl/subPage/groupBind.html'"></div>

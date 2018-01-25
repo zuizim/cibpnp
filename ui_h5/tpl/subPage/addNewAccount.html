@@ -1,0 +1,100 @@
+<div class="modal fade newAccount" id="addNewAccount" tabindex="-1" role="dialog" aria-labelledby="accountModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a href="#" onclick="return false;" class="modal-dismiss" data-dismiss="modal">&times;</a></p>
+                <div class="row">
+                    <h3 class="text-center">{{langSet.create_user_title}}</h3>
+                    <div class="panel panel-default search-detail">
+                        <div class="panel-body">
+                            <form novalidate onsubmit="return false;" name="newAccountForm" ng-submit="toAddNewAccount(newAccount)">
+                            <table class="profile table-hover">
+                                <tbody>
+                                <tr>
+                                    <td>{{langSet.hospital_label}}：</td>
+                                    <td>
+                                        <select name="hospital" ng-model="newAccount.hospitalName">
+                                            <option value="{{userInfo.HospitalName}}" ng-selected="{{newAccount.hospitalName==userInfo.HospitalName}}">{{userInfo.HospitalName}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.group_label}}：</td>
+                                    <td>
+                                        <select name="userGroup" ng-model="newAccount.groupID">
+                                            <option value="{{userGroupID-2}}" ng-selected="{{true}}">{{langSet.role_list[userGroupID-2]}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.account_label}}：</td>
+                                    <td><input type="text" name="account" ng-model="newAccount.account" required ng-minlength="2" ng-maxlenght="20" ng-blur="checkRepeat(newAccount.account,newAccount.groupID)" ng-change="newAccount.status=''"></td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.name_label}}：</td>
+                                    <td><input type="text" name="fullName" ng-model="newAccount.fullName" required ng-class="{'error':newAccountForm.fullName.$invalid && newAccountForm.fullName.$touched}"></td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.pwd_label}}：</td>
+                                    <td><input type="password" name="pwd" ng-model="newAccount.pwd" required ng-minlength="6" ng-class="{'error':newAccountForm.pwd.$invalid && newAccountForm.pwd.$touched}" ng-blur="checkRepeat(newAccount.account,newAccount.groupID)"></td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.re_pwd_label}}：</td>
+                                    <td><input type="password" name="pwd2" ng-model="newAccount.pwd2" required ng-minlength="6" ng-class="{'error':newAccountForm.pwd2.$invalid && newAccountForm.pwd2.$touched && newAccount.pwd!=newAccount.pwd2 }"></td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.age_label}}：</td>
+                                    <td><input name="age" type="number" ng-minlength="2" ng-maxlength="2" ng-model="newAccount.age" ng-class="{'error':newAccountForm.age.$invalid}" ></td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.gender_label}}：</td>
+                                    <td>
+                                        <label ng-repeat="gender in langSet.gender_list track by $index">
+                                            <input type="radio" name="gender" ng-model="newAccount.gender" ng-value="$index">{{gender}}
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr ng-show="userGroupID==4">
+                                    <td>{{langSet.download_mode_label}}：</td>
+                                    <td>
+                                        <label ng-repeat="downloadMode in langSet.download_mode track by $index">
+                                            <input type="radio" name="downloadMode" ng-model="newAccount.download" ng-value="$index">{{downloadMode}}
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr ng-show="userGroupID==4">
+                                    <td>{{langSet.dgs_bind_label}}：</td>
+                                    <td>
+                                        <multi-selection config-param="defaultConfig"></multi-selection>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.status_label}}：</td>
+                                    <td>
+                                        <label>
+                                            <input name="status" type="checkbox" ng-model="newAccount.locked">{{langSet.locked_label}}
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.info_label}}：</td>
+                                    <td>
+                                        <textarea name="info" id="info" ng-model="newAccount.info"></textarea>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p class="text-center text-danger">{{newAccount.status}}</p>
+                            <hr>
+                            <p class="text-center">
+                                <button type="button" class="btn btn-default" ng-click="toResetNewAccount()"><span class="glyphicon glyphicon-repeat"></span> {{langSet.reset_label}}</button>
+                                <button type="submit" class="btn btn-info" ng-disabled="newAccountForm.$invalid || accountRepeat"><span class="glyphicon glyphicon-ok"></span> {{langSet.create_label}}</button>
+                            </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

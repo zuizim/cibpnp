@@ -1,0 +1,116 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header white">
+                <button type="button" class="close white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" >{{langSet.report_profile_title}}</h4>
+            </div>
+            <div class="modal-body">
+                <table class="profile table-hover">
+                    <tbody><tr>
+                        <td>{{langSet.record_id_label}}：</td>
+                        <td>{{singleCase.DataID}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.record_type_label}}：</td>
+                        <td>{{singleCase.DataType}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.patient_id_label}}：</td>
+                        <td>{{singleCase.PatientID}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.patient_name_label}}：</td>
+                        <td>{{singleCase.PatientName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.patient_gender_label}}：</td>
+                        <td>{{singleCase.PatientGenderDesc}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.patient_age_label}}：</td>
+                        <td>{{singleCase.PatientAge}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.patient_height_label}}：</td>
+                        <td>{{singleCase.PatientHeight}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.patient_weight_label}}：</td>
+                        <td>{{singleCase.PatientWeight}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.acq_time_label}}：</td>
+                        <td>{{singleCase.DataAcqTime}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.record_clinic_label}}：</td>
+                        <td>{{singleCase.DataClinic}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.record_info_label}}：</td>
+                        <td>{{singleCase.DataInfo}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.submit_time_label}}：</td>
+                        <td>{{singleCase.SubmitTime}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.record_status_label}}：</td>
+                        <td>{{singleCase.StatusDesc}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.status_time_label}}：</td>
+                        <td>
+                            {{singleCase.DiagnosingTime}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.dgs_result_label}}：</td>
+                        <td class="dgsResult">
+                            {{singleCase.DGSResult}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="record-life phone-hide">
+                    <h5 class="text-left"> {{langSet.record_life_label}} :</h5>
+                    <ul>
+                        <li ng-repeat = "caseStep in singleCaseAction track by $index" class="list-unstyled">
+                            {{$index+1}}. {{caseStep.ActionTime}}, {{langSet.by_label}} {{allUserList[caseStep.UserID]}} {{langSet.action_method_names[caseStep.ActionMethod]}} {{langSet.action_object_type_names[caseStep.ActionObject]}}
+                        </li>
+                        <li ng-show="actionNoRecord" class="list-unstyled">1. {{langSet.noRecord}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer phone-hide">
+                <p ng-show="singleCase.Status==2">
+                   <button type="button" class="btn btn-default" ng-show="userGroupID==2 || userGroupID==4 || userGroupID==6" ng-click="repealCase(singleCase.infoID,'Diagnosing')"><span class="glyphicon glyphicon-transfer"></span> {{langSet.repeal_diagnosing_label}}</button>
+                    <button type="button" class="btn btn-info"    ng-show="userGroupID==4" ng-click="repealCase(singleCase.infoID,'Lock')"><span class="glyphicon glyphicon-lock"></span> {{langSet.repeal_givelock_label}}</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span> {{langSet.close_label}}</button>
+                </p>
+                <p ng-show="singleCase.Status==3">
+                    <button type="button" class="btn btn-default" ng-show="userGroupID==2 || userGroupID==4 || userGroupID==6"  ng-click="repealCase(singleCase.infoID,'Diagnosed')"><span class="glyphicon glyphicon-step-backward"></span> {{langSet.repeal_diagnosed_label}}</button>
+                    <button type="button" class="btn btn-default" ng-show="userGroupID==2 || userGroupID==4 || userGroupID==6"  ng-click="repealCase(singleCase.infoID,'Diagnosing')"><span class="glyphicon glyphicon-refresh"></span> {{langSet.repeal_diagnosing_label}}</button>
+                    <button type="button" class="btn btn-info" ng-show="userGroupID==3 || userGroupID==7"  ng-click="repealCase(singleCase.infoID,'Retrieved')"><span class="glyphicon glyphicon-retweet"></span> {{langSet.repeal_retrieved_label}}</button>
+                    <button type="button" class="btn btn-default"  ng-show="userGroupID==3 || userGroupID==7"><span class="glyphicon glyphicon-refresh"></span> {{langSet.redownload_report_label}}</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> {{langSet.close_label}}</button>
+                </p>
+                <p ng-show="singleCase.Status==4">
+                    <button type="button" class="btn btn-default" ng-show="userGroupID==1 || userGroupID==3 || userGroupID==7"  ng-click="repealCase(singleCase.infoID,'Retrieved')"><span class="glyphicon glyphicon-retweet"></span> {{langSet.repeal_retrieved_label}}</button>
+                    <button type="button" class="btn btn-default"    ng-show="userGroupID==1 || userGroupID==3 || userGroupID==7"  ng-click="repealCase(singleCase.infoID,'Redownload')"><span class="glyphicon glyphicon-refresh"></span> {{langSet.redownload_report_label}}</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> {{langSet.close_label}}</button>
+                </p>
+                <p ng-show="singleCase.Status==1">
+                    <button type="button" class="btn btn-default" ng-show="userGroupID==1 || userGroupID==3 || userGroupID==7"  ng-click="repealCase(singleCase.infoID,'Upload')"><span class="glyphicon glyphicon-retweet"></span> {{langSet.repeal_upload_label}}</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> {{langSet.close_label}}</button>
+                </p>
+                <p class="text-center text-danger">{{repealStatus}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+

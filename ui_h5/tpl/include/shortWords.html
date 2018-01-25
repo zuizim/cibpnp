@@ -1,0 +1,10 @@
+<span class="short-words">
+    <span>
+        {{view.shortText}}
+        <a href="#" onclick="return false;" ng-click="toggleStatus()" ng-show="view.isNeeded">.....</a>
+    </span>
+    <div ng-show="view.isShowed" class="full-content">
+        <a href="#" onclick="return false;" ng-click="view.isShowed=false" class="close-full pull-right">&times;</a>
+        <div>{{textContent}}</div>
+    </div>
+</span>

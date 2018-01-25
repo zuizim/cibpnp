@@ -1,0 +1,48 @@
+<!--编辑分析组成员，当且仅当是操作组管理员时才使用此页面-->
+<div class="modal fade newAccount" id="bindAlyGroupModal" tabindex="-1" role="dialog" aria-labelledby="bindAlyGroupModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a href="#" onclick="return false;" class="modal-dismiss" data-dismiss="modal">&times;</a></p>
+                <div class="row">
+                    <h3 class="text-center">
+                        <span>{{langSet['bind_aly_group']}}</span>
+                    </h3>
+                    <div class="panel panel-default search-detail">
+                        <div class="panel-body">
+                            <form novalidate onsubmit="return false;" name="groupBindForm" ng-submit="updateBindAlyGroup()">
+                            <table class="profile table-hover">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <span>{{langSet['opt_group_label']}}: </span>
+                                    </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;&nbsp;{{userInfo.Account +" -> "+ userInfo.Name}}</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>{{langSet['aly_group_label']}}: </span>
+                                    </td>
+                                    <td>
+                                        <new-checkbox source-obj="alyGroupDatas"></new-checkbox>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p class="text-center text-danger">{{bindAlyGroup.status}}</p>
+                            <br />
+                            <p class="text-center">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> {{langSet.close_label}}</button>
+                                <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-ok"></span> {{langSet.save_label}}</button>
+                            </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

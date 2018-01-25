@@ -1,0 +1,39 @@
+<div class="table small-word">
+    <ul class="list-inline filter-option pull-right">
+        <li><label>{{langSet.filter_label}} :</label></li>
+        <li><input type="text" placeholder="{{langSet.id_label}}" ng-model="groupAccountID"></li>
+        <li><input type="text" placeholder="{{langSet.hospital_label}}" ng-model="groupAccountInfo"></li>
+        <li><input type="text" placeholder="{{langSet.dgs_hospital_label}}" ng-model="groupAccountFullName"></li>
+    </ul>
+    <table class="table table-bordered table-responsive table-hover caseData">
+        <thead>
+        <tr>
+            <th>{{langSet.id_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort($event,'ID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.hospital_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort($event,'Name')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.dgs_user_info_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort($event,'ShortName')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.hospital_phone_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort($event,'Phone')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.hospital_address_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort($event,'Address')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.dgs_hospital_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort($event,'DGSHospitalID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.hospital_info_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort($event,'Info')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.show_dgs_doctor_label}}<a href="#" onclick="return false;" onfocus="this.blur();" ng-click="sort($event,'Flag')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+            <th>{{langSet.operation_label}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="hospitalData in pageHospitalDatas | filter:{ID:groupAccountID}|filter:{Name:groupAccountInfo}|filter:{DGSHospitalID:groupAccountFullName}|orderBy:sortByWord:descToggle">
+            <td>{{hospitalData.ID}}</td>
+            <td><a href="#" onclick="return false;"  ng-click="showHospitalInfo(hospitalData)"  data-toggle="modal" data-target="#hospitalDetailModal">{{hospitalData.Name}}</a></td>
+            <td>{{hospitalData.ShortName}}</td>
+            <td>{{hospitalData.Phone}}</td>
+            <td>{{hospitalData.Address}}</td>
+            <td>{{hospitalData.DGSHospitalID}}</td>
+            <td>{{hospitalData.Info}}</td>
+            <td><a href="#" onclick="return false;"  ng-click="toggleHospitalFlag(hospitalData.ID)" class="btn btn-default btn-sm" ng-class="{'btn-success':hospitalData.Locked==0}">{{langSet.Toggle_label[hospitalData.Locked]}}</a></td>
+            <td><a href="#" onclick="return false;"  ng-click="toEditHospital(hospitalData.ID)" class="btn btn-default btn-sm">{{langSet.edit_label}}</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <my-pagination page-config="pagerConfig1" page-codes="pagerCodes1"></my-pagination>
+</div>
+
+<div ng-include="'tpl/subPage/hospitalDetail.html'"></div>

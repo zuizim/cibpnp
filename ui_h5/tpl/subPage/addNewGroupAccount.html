@@ -1,0 +1,88 @@
+<div class="modal fade newAccount" id="addNewGroupAccount" tabindex="-1" role="dialog" aria-labelledby="addNewGroupAccountModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a href="#" onclick="return false;" class="modal-dismiss" data-dismiss="modal">&times;</a></p>
+                <div class="row">
+                    <h3 class="text-center">
+                        <span ng-show="userGroupID==3">{{langSet.create_opt_group_title}}</span>
+                        <span ng-show="userGroupID==4">{{langSet.create_aly_group_title}}</span>
+                    </h3>
+                    <div class="panel panel-default search-detail">
+                        <div class="panel-body">
+                            <form novalidate onsubmit="return false;" name="newGroupAccountForm" ng-submit="toAddNewAccount(newGroupAccount)">
+                            <table class="profile table-hover">
+                                <tbody>
+                                <tr>
+                                    <td>{{langSet.hospital_label}}：</td>
+                                    <td>
+                                        <select name="hospital">
+                                            <option selected>{{userInfo.HospitalName}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.group_label}}：</td>
+                                    <td>
+                                        <select name="userGroup">
+                                            <option selected>{{langSet.role_list[newGroupAccount.groupID]}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.account_label}}：</td>
+                                    <td><input type="text" name="account" ng-model="newGroupAccount.account" required ng-minlength="2" ng-maxlenght="20" ng-blur="checkRepeat(newGroupAccount.account,newGroupAccount.groupID)" ng-change="newGroupAccount.status=''"></td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.name_label}}：</td>
+                                    <td><input type="text" name="fullName" ng-model="newGroupAccount.fullName" required ng-class="{'error':newGroupAccountForm.fullName.$invalid && newGroupAccountForm.fullName.$touched}"></td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.pwd_label}}：</td>
+                                    <td><input type="password" name="pwd" ng-model="newGroupAccount.pwd" required ng-minlength="6" ng-class="{'error':newGroupAccountForm.pwd.$invalid && newGroupAccountForm.pwd.$touched}"  ng-blur="checkRepeat(newGroupAccount.account,newGroupAccount.groupID)"></td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.re_pwd_label}}：</td>
+                                    <td><input type="password" name="pwd2" ng-model="newGroupAccount.pwd2" required ng-minlength="6" ng-class="{'error':newGroupAccountForm.pwd2.$invalid && newGroupAccountForm.pwd2.$touched && newGroupAccount.pwd!=newGroupAccount.pwd2 }"></td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.age_label}}：</td>
+                                    <td><input name="age" type="number" ng-minlength="2" ng-maxlength="2" ng-model="newGroupAccount.age" ng-class="{'error':newGroupAccountForm.age.$invalid}"></td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.gender_label}}：</td>
+                                    <td>
+                                        <label ng-repeat="gender in langSet.gender_list track by $index">
+                                            <input type="radio" name="gender" ng-model="newGroupAccount.gender" ng-value="$index">{{gender}}
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.status_label}}：</td>
+                                    <td>
+                                        <label>
+                                            <input name="status" type="checkbox" ng-model="newGroupAccount.locked">{{langSet.locked_label}}
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.info_label}}：</td>
+                                    <td><textarea name="info" id="info" ng-model="newGroupAccount.info"></textarea></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p class="text-center text-danger">{{newGroupAccount.status}}</p>
+                            <hr>
+                            <p class="text-center">
+                                <button type="button" class="btn btn-default" ng-click="toResetGroupAccount()"><span class="glyphicon glyphicon-repeat"></span> {{langSet.reset_label}}</button>
+                                <button type="submit" class="btn btn-info" ng-disabled="newGroupAccountForm.$invalid || groupRepeat"><span class="glyphicon glyphicon-ok"></span> {{langSet.create_label}}</button>
+                            </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,97 @@
+<div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="accountModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a href="#" onclick="return false;" onfocus="this.blur();" class="modal-dismiss" data-dismiss="modal">&times;</a></p>
+                <div class="row" ng-hide="singleAccountEditing">
+                   <h3 class="text-center">{{langSet.user_profile_title}}</h3>
+                    <div class="panel panel-default search-detail">
+                        <div class="panel-heading text-center"><span class="glyphicon glyphicon-hand-down"></span></div>
+                        <div class="panel-body">
+                            <table class="profile table-hover">
+                                <tbody><tr>
+                                    <td>{{langSet.account_label}}：</td>
+                                    <td>{{singleAccountData.Account}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.group_label}}：</td>
+                                    <td>{{langSet.role_list[singleAccountData.GroupID]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.hospital_label}}：</td>
+                                    <td>{{userInfo.HospitalName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.name_label}}：</td>
+                                    <td>{{singleAccountData.Name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.gender_label}}：</td>
+                                    <td>{{langSet.gender_list[singleAccountData.Gender]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.age_label}}：</td>
+                                    <td>{{singleAccountData.Age?singleAccountData.Age:""}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.create_time_label}}：</td>
+                                    <td>{{singleAccountData.CreateTime}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.login_count_label}}：</td>
+                                    <td>{{singleAccountData.LoginCount}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.ip_label}}：</td>
+                                    <td>{{singleAccountData.LastLoginIp}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.mac_label}}：</td>
+                                    <td>{{singleAccountData.LastLoginMac}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.client_label}}：</td>
+                                    <td>{{singleAccountData.LastLoginClient}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.login_time_label}}：</td>
+                                    <td>{{singleAccountData.LastLoginTime}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.info_label}}：</td>
+                                    <td>{{singleAccountData.Info}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{langSet.status_label}}：</td>
+                                    <td>{{langSet.user_status[singleAccountData.Locked]}}</td>
+                                </tr>
+                                <tr ng-show="singleAccountData.GroupID==2">
+                                    <td>{{langSet.dgs_bind_label}}：</td>
+                                    <td>
+                                        <span ng-repeat="bindInfo in singleAccountBind">{{bindInfo.Name}};&nbsp;</span>
+                                        <span ng-show="noBind">{{langSet.no_limit}}</span>
+                                    </td>
+                                </tr>
+                                <tr ng-show="singleAccountData.GroupID==2">
+                                    <td>{{langSet.download_mode_label}}：</td>
+                                    <td>{{langSet.download_mode[singleAccountData.DownloadFlag]}}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <hr>
+                            <p class="text-center">
+                                <a class="btn btn-warning" href="#" onclick="return false;" ng-show="userGroupID==3||userGroupID==4" ng-click="toEditAccountProfile(singleAccountData)"><span class="glyphicon glyphicon-edit"></span> {{langSet.edit_label}}</a>
+                                <a class="btn btn-info" href="#" onclick="return false;" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> {{langSet.close_label}}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-include="'tpl/subPage/editProfile.html'"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

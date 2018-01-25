@@ -1,0 +1,12 @@
+<div class="container main">
+  <div class="fixed">
+    <ul class="nav nav-tabs">
+      <li role="presentation" ng-repeat="tab in tabs track by $index" accesskey="$index" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">
+        <a href="#" onclick="return false;">{{tab.title}}</a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <div ng-include="currentTab"></div>
+  </div>
+</div>

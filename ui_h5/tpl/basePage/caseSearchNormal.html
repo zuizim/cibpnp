@@ -1,0 +1,229 @@
+ <div class="search">
+     <div class="row download">
+         <div class="col-sm-12">
+             <h3 class="text-center white phone-hide">
+                 <span ng-show="userGroupID==1">{{langSet.title_search_my_record}}</span>
+                 <span ng-show="userGroupID==2">{{langSet.title_search_aly_report}}</span>
+             </h3>
+             <br/>
+         </div>
+         <div class="col-sm-12">
+             <div class="panel panel-default search-detail">
+                 <div class="panel-heading">
+                     <span ng-show="userGroupID==1">{{langSet.title_search_my_record}} <span class="glyphicon glyphicon-search"></span></span>
+                     <span ng-show="userGroupID==2">{{langSet.title_search_aly_report}} <span class="glyphicon glyphicon-search"></span></span>
+                 </div>
+                 <div class="panel-body">
+                     <form role="form" onsubmit="return false;" ng-submit="searchAllRecords(userGroupID)" novalidate>
+                     <table class="search-filter table-borded table-hover">
+                         <tbody>
+                         <tr>
+                             <td>{{langSet.record_id_label}}</td>
+                             <td><input type="text" ng-model="multiFilter.dataID"></td>
+                             <td class="phone-hide">{{langSet.patient_gender_label}}</td>
+                             <td class="phone-hide">
+                                 <select name="gender" ng-model="multiFilter.patientGender">
+                                     <option ng-repeat="gender in genderList track by $index" value="{{$index}}">{{gender}}</option>
+                                     <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                 </select>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>{{langSet.patient_id_label}}</td>
+                             <td><input type="text" ng-model="multiFilter.patientID"></td>
+                             <td class="phone-hide">{{langSet.record_type_label}}</td>
+                             <td class="phone-hide">
+                                 <select name="type" ng-model="multiFilter.dataTypeID">
+                                     <option ng-repeat="recordType in recordTypes track by $index" value="{{recordType.ID}}">{{recordType.Name}}</option>
+                                     <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                 </select>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>{{langSet.patient_name_label}}</td>
+                             <td><input type="text" ng-model="multiFilter.patientName"></td>
+                             <td class="phone-hide">{{langSet.record_status_label}}</td>
+                             <td class="phone-hide">
+                                 <span ng-show="userGroupID==1">
+                                     <select name="record_status" ng-model="multiFilter.status">
+                                        <option ng-repeat="(key,val) in langSet.data_status track by $index" value="{{$index}}">{{val}}</option>
+                                        <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                    </select>
+                                 </span>
+                                 <span ng-show="userGroupID==2">
+                                     <select name="record_status" ng-model="multiFilter.status">
+                                        <option ng-repeat="(key,val) in langSet.report_status track by $index" value="{{$index+2}}">{{val}}</option>
+                                        <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                    </select>
+                                 </span>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>{{langSet.record_clinic_label}}</td>
+                             <td><input type="text" ng-model="multiFilter.dataClinic"></td>
+                             <td class="phone-hide">
+                                 <span ng-show="userGroupID==1">{{langSet.dgs_hospital_label}}</span>
+                                 <span ng-show="userGroupID==2">{{langSet.upload_hospital_label}}</span>
+                             </td>
+                             <td class="phone-hide">
+                                 <select name="dgsHospital" ng-model="multiFilter.dgsHospitalID" ng-show="userGroupID==1">
+                                     <option ng-repeat="(hospitalID,hospitalName) in hospitalList track by $index" value="{{hospitalID}}">{{hospitalName}}</option>
+                                     <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                 </select>
+                                 <select name="optHospital" ng-model="multiFilter.optHospitalID" ng-show="userGroupID==2">
+                                     <option ng-repeat="(hospitalID,hospitalName) in hospitalList track by $index" value="{{hospitalID}}">{{hospitalName}}</option>
+                                     <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                 </select>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>{{langSet.record_info_label}}</td>
+                             <td><input type="text" ng-model="multiFilter.dataInfo"></td>
+                             <td class="phone-hide">{{langSet.from}}</td>
+                             <td class="phone-hide"><input type="date" ng-model="multiFilter.startDate"  ng-class="{'error':multiFilter.startDate>multiFilter.endDate}"></td>
+                         </tr>
+                         <tr>
+                             <td>{{langSet.dgs_result_label}}</td>
+                             <td><input type="text" ng-model="multiFilter.dgsResult"></td>
+                             <td class="phone-hide">{{langSet.to}}</td>
+                             <td class="phone-hide"><input type="date" ng-model="multiFilter.endDate"  ng-class="{'error':multiFilter.startDate>multiFilter.endDate}"></td>
+                         </tr>
+                         <tr>
+                             <td colspan="4">
+                                     <label><input type="radio" name="timePeriod" ng-model="multiFilter.timePeriod" ng-value="period.today">{{langSet.today}}</label>
+                                     <label><input type="radio" name="timePeriod" ng-model="multiFilter.timePeriod" ng-value="period.yesterday">{{langSet.yesterday}}</label>
+                                     <label><input type="radio" name="timePeriod" ng-model="multiFilter.timePeriod" ng-value="period.twoDaysAgo">{{langSet.twoDaysAgo}}</label>
+                                     <label class="phone-hide"><input type="radio" name="timePeriod" ng-model="multiFilter.timePeriod" ng-value="period.thisWeek">{{langSet.thisWeek}}</label>
+                                     <label class="phone-hide"><input type="radio" name="timePeriod" ng-model="multiFilter.timePeriod" ng-value="period.lastWeek">{{langSet.lastWeek}}</label>
+                                     <label class="phone-hide"><input type="radio" name="timePeriod" ng-model="multiFilter.timePeriod" ng-value="period.thisMonth">{{langSet.thisMonth}}</label>
+                                     <label class="pad-hide"><input type="radio" name="timePeriod" ng-model="multiFilter.timePeriod" ng-value="period.lastMonth">{{langSet.lastMonth}}</label>
+                                     <label><input type="radio" name="timePeriod" ng-model="multiFilter.timePeriod" ng-value="period.all">{{langSet.all}}</label>
+                             </td>
+                         </tr>
+                         </tbody>
+                     </table>
+                     <hr>
+                     <p class="text-center">
+                         <button type="button" class="btn btn-default" ng-click="resetMultiFilter()"><span class="glyphicon glyphicon-repeat"></span> {{langSet.reset_label}}</button>&nbsp;
+                         <button class="btn btn-info" type="submit"><span class="glyphicon glyphicon-search"></span> {{langSet.search_all_label}}</button>
+                     </p>
+                     </form>
+                 </div>
+             </div>
+         </div>
+         <div class="col-sm-12 search-result">
+             <div class="panel panel-default">
+                 <div class="panel-heading text-center">{{langSet.belowIsReportList}} <span class="glyphicon glyphicon-hand-down"></span>
+                 </div>
+                 <p class="toExcel phone-hide">
+                     <a href="#" ng-show="searchedDatas.length" onclick="return false;" ng-click="excelFile(searchedDatas)" class="btn btn-success btn-sm pull-right download-btn"><span class="glyphicon glyphicon-share-alt"></span> {{langSet.export_excel_label}}</a>&nbsp;
+                     <a href="{{downloadURL}}" ng-href="{{downloadURL}}" ng-show="downloadURL" target="_blank" class="pull-right btn btn-warning btn-sm"><span class="glyphicon glyphicon-save"></span></a>
+                 </p>
+
+                 <div class="panel-body">
+                     <table class="table table-bordered table-responsive table-hover caseData" ng-show="searchedDatas.length>0">
+                         <thead>
+                         <tr>
+                             <th>{{langSet.record_id_label}}<a href="#" onclick="return false;"      ng-click="sort(1,filteredDatas,$event,'DataID')" ><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                             <th>{{langSet.patient_name_label}}<a href="#" onclick="return false;" onfocus="this.blur();"   ng-click="sort(1,filteredDatas,$event,'PatientName')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                             <th class="pad-hide">{{langSet.gender_label}}<a href="#" onclick="return false;"  onfocus="this.blur();"        ng-click="sort(1,filteredDatas,$event,'PatientGender')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                             <th class="pad-hide">{{langSet.record_type_label}}<a href="#" onclick="return false;"  onfocus="this.blur();"   ng-click="sort(1,filteredDatas,$event,'DataTypeID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                             <th>{{langSet.submit_time_label}}<a href="#" onclick="return false;"  onfocus="this.blur();"   ng-click="sort(1,filteredDatas,$event,'SubmitTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                             <th class="phone-hide">{{langSet.record_clinic_label}}<a href="#" onclick="return false;"  onfocus="this.blur();" ng-click="sort(1,filteredDatas,$event,'DataClinic')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                             <th class="phone-hide">{{langSet.dgs_time_label}}<a href="#" onclick="return false;"  onfocus="this.blur();"      ng-click="sort(1,filteredDatas,$event,'DiagnosedTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                             <th>{{langSet.status_label}}<a href="#" onclick="return false;"  onfocus="this.blur();"      ng-click="sort(1,filteredDatas,$event,'DiagnosedTime')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                             <th ng-show="userGroupID==1" class="phone-hide">{{langSet.dgs_hospital_label}}<a href="#" onclick="return false;"  onfocus="this.blur();"  ng-click="sort(1,filteredDatas,$event,'HospitalID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                             <th ng-show="userGroupID==2" class="phone-hide">{{langSet.upload_hospital_label}}<a href="#" onclick="return false;"  onfocus="this.blur();"  ng-click="sort(1,filteredDatas,$event,'DGSHospitalID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                             <th ng-show="userGroupID==1" class="phone-hide">{{langSet.operator_label}}<a href="#" onclick="return false;" onfocus="this.blur();"       ng-click="sort(1,filteredDatas,$event,'UserID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                             <th ng-show="userGroupID==2" class="phone-hide">{{langSet.dgs_doctor_label}}<a href="#" onclick="return false;" onfocus="this.blur();"       ng-click="sort(1,filteredDatas,$event,'DGSUserID')"><span class="pull-right glyphicon glyphicon-chevron-down sort-icon"></span></a></th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         <tr ng-show="searchedDatas.length>5">
+                             <td><input type="text" ng-model="reFilter.DataID" placeholder="{{langSet.filter_label}}"></td>
+                             <td><input type="text" ng-model="reFilter.PatientName" placeholder="{{langSet.filter_label}}"></td>
+                             <td class="pad-hide">
+                                 <select name="gender" ng-model="reFilter.PatientGender">
+                                     <option ng-repeat="gender in genderList track by $index" value="{{$index}}">{{gender}}</option>
+                                     <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                 </select>
+                             </td>
+                             <td class="pad-hide">
+                                 <select name="type" ng-model="reFilter.DataTypeID">
+                                     <option ng-repeat="recordType in recordTypes track by $index" value="{{recordType.ID}}">{{recordType.Name}}</option>
+                                     <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                 </select>
+                             </td>
+                             <td>
+                                 <input type="date" ng-model="reFilter.SubmitTime">
+                             </td>
+                             <td class="phone-hide"><input type="text" ng-model="reFilter.DataInfo" placeholder="{{langSet.filter_label}}"></td>
+                             <td class="phone-hide"><input type="date" ng-model="reFilter.DiagnosingTime"></td>
+                             <td>
+                                 <span ng-show="userGroupID==1">
+                                     <select name="record_status" ng-model="reFilter.Status">
+                                        <option ng-repeat="(key,val) in langSet.data_status track by $index" value="{{$index}}">{{val}}</option>
+                                        <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                    </select>
+                                 </span>
+                                 <span ng-show="userGroupID==2">
+                                     <select name="record_status" ng-model="reFilter.Status">
+                                        <option ng-repeat="(key,val) in langSet.report_status track by $index" value="{{$index+2}}">{{val}}</option>
+                                        <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                    </select>
+                                 </span>
+                             </td>
+                             <td ng-show="userGroupID==1" class="phone-hide">
+                                 <select name="dgsHospital" ng-model="reFilter.DGSHospitalID">
+                                     <option ng-repeat="(ID,Name) in hospitalList track by $index" value="{{ID}}">{{Name}}</option>
+                                     <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                 </select>
+                             </td>
+                             <td ng-show="userGroupID==2" class="phone-hide">
+                                 <select name="optHospital" ng-model="reFilter.HospitalID">
+                                     <option ng-repeat="(ID,Name) in hospitalList track by $index" value="{{ID}}">{{Name}}</option>
+                                     <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                 </select>
+                             </td>
+                             <td ng-show="userGroupID==1" class="phone-hide">
+                                 <select name="dgsUser" ng-model="reFilter.UserID">
+                                     <option value="{{userInfo['ID']}}">{{userInfo['Name']}}</option>
+                                     <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                 </select>
+                             </td>
+                             <td ng-show="userGroupID==2" class="phone-hide">
+                                 <select name="dgsUser" ng-model="reFilter.DGSUserID">
+                                     <option value="{{userInfo['ID']}}">{{userInfo['Name']}}</option>
+                                     <option value="" ng-selected="{{1}}">{{langSet.no_limit}}</option>
+                                 </select>
+                             </td>
+                         </tr>
+                         <tr ng-repeat="caseData in pageFilteredDatas">
+                             <td><a href="#" onclick="return false;" ng-click="showCaseById(caseData)" data-toggle="modal" data-target="#myModal">{{caseData.DataID}}</a></td>
+                             <td>{{caseData.PatientName}}</td>
+                             <td class="pad-hide">{{caseData.PatientGenderDesc}}</td>
+                             <td class="pad-hide">{{caseData.DataType}}</td>
+                             <td>{{caseData.SubmitTime}}</td>
+                             <td class="phone-hide">{{caseData.DataClinic}}</td>
+                             <td class="phone-hide">{{caseData.DiagnosingTime}}</td>
+                             <td>{{caseData.StatusDesc}}</td>
+                             <td ng-show="userGroupID==1" class="phone-hide">{{caseData.DGSHospitalName}}</td>
+                             <td ng-show="userGroupID==2" class="phone-hide">{{caseData.HospitalName}}</td>
+                             <td ng-show="userGroupID==1" class="phone-hide">{{caseData.UserName}}</td>
+                             <td ng-show="userGroupID==2" class="phone-hide">{{caseData.DGSUserName}}</td>
+                         </tr>
+                         </tbody>
+                     </table>
+                     <my-pagination page-config="pagerConfig0" page-codes="pagerCodes0"></my-pagination>
+                     <p ng-show="searchedDatas.length<=0" class="text-danger text-center"><span class="glyphicon glyphicon-alert"></span>&nbsp;{{langSet.noRecord}}</p>
+                 </div>
+             </div>
+         </div>
+     </div>
+     </div>
+ <div class="backToTop">
+     <back-top></back-top>
+ </div>
+</div>
+
+ <div ng-include="'tpl/subPage/singleCase.html'"></div>

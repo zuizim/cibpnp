@@ -1,0 +1,95 @@
+<div class="row editProfile" id="editProfile" ng-show="singleAccountEditing">
+    <h3 class="text-center" >{{langSet.user_edit_title}}</h3>
+    <div class="panel panel-default search-detail">
+        <div class="panel-heading text-center"><span class="glyphicon glyphicon-hand-down"></span><a href="#" onclick="return false;" ng-click="cancelEditAccountProfile()" class="pull-right">&times;</a></div>
+        <div class="panel-body">           
+            <form role="form" name="editProfile" novalidate onsubmit="return false;" ng-submit="toUpdateAccountProfile()">
+                <div class="temp-hidden">
+                    <!--下面2行为了隐藏自动填充用户名和密码表单，会导致BUG-->
+                    <input type="text" />   
+　　                <input type="password" />
+                    <!-- 以上两行-->
+                </div>
+                <table class="profile table-hover">
+                    <tbody>                                         
+                    <tr>
+                        <td>{{langSet.hospital_label}}：</td>
+                        <td>
+                            <select name="hospital">
+                                <option selected>{{userInfo.HospitalName}}</option>                               
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.group_label}}：</td>
+                        <td>
+                            <select name="userGroup">
+                                <option selected>{{langSet.role_list[singleAccountData.GroupID]}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.account_label}}：</td>
+                        <td>
+                            <input type="text" ng-model="editAccount.Account" required ng-minlength="1" ng-maxlenght="20" ng-change="editAccount.Status=''">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.name_label}}：</td>
+                        <td><input type="text" name="fullName" ng-model="editAccount.Name" required ng-class="{'error':editProfile.fullName.$invalid && editProfile.fullName.$touched}"  ng-change="editAccount.Status=''"></td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.new_pwd_label}}：</td>
+                        <td><input type='password' name='newPwd' ng-model='editAccount.NewPwd' ng-minlength='6' ng-class="{'error':editProfile.newPwd.$invalid && editProfile.newPwd.$touched}" ng-change="editAccount.Status=''"></td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.re_pwd_label}}：</td>
+                        <td><input type="password" name="newPwd2" ng-model="editAccount.NewPwd2" ng-minlength="6"  ng-change="editAccount.Status=''"></td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.patient_age_label}}：</td>
+                        <td><input name="age" type="number" ng-maxlength="2" ng-model="editAccount.Age" ng-class="{'error':editProfile.age.$invalid}"  ng-change="editAccount.Status=''"></td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.gender_label}}：</td>
+                        <td>
+                            <label ng-repeat="gender in langSet.gender_list track by $index">
+                                <input type="radio" name="gender" ng-model="editAccount.Gender" ng-value="$index" ng-change="editAccount.Status=''">{{gender}}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr ng-show="userGroupID==4 && singleAccountData.GroupID==2">
+                        <td>{{langSet.download_mode_label}}：</td>
+                        <td>
+                            <label ng-repeat="downloadMode in langSet.download_mode track by $index">
+                                <input type="radio" name="downloadMode" ng-model="editAccount.DownloadFlag" ng-value="$index" ng-change="editAccount.Status=''">{{downloadMode}}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr ng-show="userGroupID==4 && singleAccountData.GroupID==2">
+                        <td>{{langSet.dgs_bind_label}}：</td>
+                        <td>
+                            <multi-selection config-param="defaultConfig"></multi-selection>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.status_label}}：</td>
+                        <td><input name="status" type="checkbox" ng-model="editAccount.Locked" ng-checked="editAccount.Locked"  ng-change="editAccount.Status=''">{{langSet.locked_label}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{langSet.info_label}}：</td>
+                        <td><textarea name="" id="" cols="" rows="3" ng-model="editAccount.Info"  ng-change="editAccount.Status=''"></textarea></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <p class="text-center text-danger">{{editAccount.Status}}</p>
+                <hr />
+                <p class="text-center">
+                    <button type="button" class="btn btn-default" ng-click="resetEditAccountProfile(singleAccountData)"><span class="glyphicon glyphicon-repeat"></span> {{langSet.reset_label}}</button>
+                    <button type="submit" class="btn btn-info" ng-disabled="editProfile.$invalid"><span class="glyphicon glyphicon-ok"></span> {{langSet.save_label}}</button>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
